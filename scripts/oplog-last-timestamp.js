@@ -4,7 +4,7 @@
 var local = db.getSiblingDB('local');
 var last = local['oplog.rs'].find().sort({'$natural': -1}).limit(1)[0];
 var result = {};
-if(last != null) {
+if (last != null) {
     result = {position: last['ts']};
 }
 

@@ -1,0 +1,15 @@
+{
+  "name": "mongo-incremental-backup",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/afonsof/mongo-oplog-backup.git",
+  "author": "Afonso F <afonso.franca@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "argparse": "^1.0.9",
+    "bson": "^1.0.4",
+    "mongodb": "^2.2.31",
+    "node-yaml": "^3.1.1",
+    "rimraf": "^2.6.1"
+  }
+}
