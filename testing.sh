@@ -12,7 +12,11 @@ rm -rf testdb
 mkdir testdb
 mongod --port 27017 --dbpath testdb --replSet rs0 --oplogSize 20 --noprealloc --fork --smallfiles --logpath mongodb.log
 sleep 3
-mongo --port 27017 admin --eval 'printjson(rs.initiate());'
+mongo --port 27017 admin --eval 'printjson(rs.initiate({
+      _id: "rs0",
+      version: 1,
+      members: [{ _id: 0, host : "127.0.0.1:27017" }]
+    }));'
 sleep 20
 
 ./bin/node-mongo-oplog-backup backup --port 27017 --dir backup-test/ --full
@@ -35,12 +39,16 @@ sleep 5
 rm -rf testdb/*
 mongod --port 27017 --dbpath testdb --replSet rs0 --oplogSize 20 --noprealloc --fork --smallfiles --logpath mongodb.log
 sleep 3
-mongo --port 27017 admin --eval 'printjson(rs.initiate());'
+mongo --port 27017 admin --eval 'printjson(rs.initiate({
+      _id: "rs0",
+      version: 1,
+      members: [{ _id: 0, host : "127.0.0.1:27017" }]
+    }));'
 sleep 20
 
 export BACKUPDIR=`ls -1t backup-test/ |grep backup- |head -n 1`
 
-./bin/mongo-oplog-backup restore --full --gzip --dir backup-test/$BACKUPDIR --port 27017
+./bin/node-mongo-oplog-backup restore --full --dir backup-test/$BACKUPDIR --port 27017
 mongo --port 27017 backup-test --eval 'db.test.find()'
 
 
