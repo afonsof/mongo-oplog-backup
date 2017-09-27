@@ -1,14 +1,19 @@
 #!/usr/bin/env node
+
+'use strict';
+
+process.title = 'node-mongo-oplog-backup';
+
 const path = require("path");
 const fs = require("fs");
 const argparse = require("argparse");
 
 //classes
 const ArgumentParser = argparse.ArgumentParser;
-const Config = require('../lib/mongo_oplog_backup/config');
-const Backup = require('../lib/mongo_oplog_backup/backup');
-const Restore = require("../lib/mongo_oplog_backup/restore");
-const Oplog = require("../lib/mongo_oplog_backup/oplog");
+const Config = require('../lib/config');
+const Backup = require('../lib/backup');
+const Restore = require("../lib/restore");
+const Oplog = require("../lib/oplog");
 
 //Create main parser
 const parser = new ArgumentParser({
@@ -53,7 +58,7 @@ backupParser.addArgument(["--full"], {
 
 backupParser.addArgument(["-f", "--file"], {
     help: "Configuration file for common defaults",
-    required: true
+    required: false
 });
 
 backupParser.addArgument(["--oplog"], {

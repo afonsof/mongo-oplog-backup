@@ -1,4 +1,4 @@
-Copyright (c) 2014 Ralf Kistner
+Copyright (c) 2017 Afonso França de Oliveira
 
 MIT License
 
