@@ -1,5 +1,5 @@
 {
-  "name": "mongo-incremental-backup",
+  "name": "mongo-oplog-s3-backup",
   "version": "0.0.1",
   "main": "index.js",
   "repository": "https://github.com/afonsof/node-mongo-oplog-backup.git",
@@ -13,11 +13,13 @@
   },
   "dependencies": {
     "argparse": "^1.0.9",
+    "bluebird": "^3.5.0",
     "bson": "^1.0.4",
     "eslint": "^4.7.2",
     "mongodb": "^2.2.31",
     "node-yaml": "^3.1.1",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "s3": "^4.4.0"
   },
   "devDependencies": {
     "eslint-config-google": "^0.9.1"

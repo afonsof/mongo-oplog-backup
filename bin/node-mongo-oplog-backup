@@ -120,6 +120,11 @@ backupParser.addArgument(['-p', '--password'], {
     'argument'
 });
 
+backupParser.addArgument(['--s3AccessKeyId']);
+backupParser.addArgument(['--s3SecretAccessKey']);
+backupParser.addArgument(['--s3Region']);
+backupParser.addArgument(['--s3Bucket']);
+
 mergeParser.addArgument(['-v', '--verbose'], {
     help: 'Enable verbose mode',
     action: 'storeTrue'
@@ -249,23 +254,15 @@ function executeAction(opts, action) {
             sslCAFile: opts.sslCAFile,
             sslPEMKeyFile: opts.sslPEMKeyFile,
             sslPEMKeyPassword: opts.sslPEMKeyPassword,
-            authenticationDatabase: opts.authenticationDatabase
+            authenticationDatabase: opts.authenticationDatabase,
+            s3AccessKeyId: opts.s3AccessKeyId,
+            s3SecretAccessKey: opts.s3SecretAccessKey,
+            s3Region: opts.s3Region,
+            s3Bucket: opts.s3Bucket
         };
         const config = new Config(configOpts);
         const backup = new Backup(config);
         return backup.perform(mode);
-    } else if (action == 'merge') {
-        const dir = opts.dir;
-        if (!dir) {
-            throw Error('dir must be specified');
-        }
-        if (!fs.existsSync(path.join(dir, 'dump'))) {
-            throw Error('dir must contain a dump subfolder');
-        }
-        return Oplog.mergeBackup(dir);
-        // puts
-        // puts "Restore the backup with: "
-        // puts "mongorestore [--drop] [--gzip] --oplogReplay #{File.join(dir, 'dump')}"
     } else if (action == 'restore') {
         const dir = opts.dir;
 
