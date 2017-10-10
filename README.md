@@ -9,7 +9,7 @@ Install released node module:
 
 ## Usage
 
-Your mongo server must be started as `--replSet` option. Example:
+Your mongo server must be started with `--replSet` option. Example:
 ```mongod --replSet rs0```
 You also need to initiate the replica set once with the command. Example using the same server as replica set:
 ```
